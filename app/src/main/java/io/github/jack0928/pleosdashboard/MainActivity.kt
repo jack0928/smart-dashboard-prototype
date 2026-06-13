@@ -155,16 +155,38 @@ class MainActivity : AppCompatActivity() {
         valueViews[signal]?.text = format(signal, raw)
     }
 
-    /** 값 보기 좋게 변환 (소수점/단위 처리) */
+    /** 값 보기 좋게 변환 (소수점/단위/enum 이름 처리) */
     private fun format(signal: VehicleSignal, raw: Any?): String {
         if (raw == null) return "—"
-        // 기어/시동은 정수 enum 값. 학습용으로 원시 값을 그대로 보여줍니다.
-        // [Kotlin] when = Java 의 switch 강화판. 값의 타입으로 분기 가능.
-        val text = when (raw) {
-            is Float -> String.format("%.1f", raw)
-            else -> raw.toString()
+        // 기어/시동은 정수 enum 값이므로 사람이 읽는 이름으로 변환.
+        // [Kotlin] when = Java 의 switch 강화판.
+        return when (signal) {
+            VehicleSignal.GEAR -> gearName(raw as? Int ?: return raw.toString())
+            VehicleSignal.IGNITION -> ignitionName(raw as? Int ?: return raw.toString())
+            else -> {
+                val text = if (raw is Float) String.format("%.1f", raw) else raw.toString()
+                if (signal.unit.isEmpty()) text else "$text ${signal.unit}"
+            }
         }
-        return if (signal.unit.isEmpty()) text else "$text ${signal.unit}"
+    }
+
+    /** VehicleGear(android.car.VehicleGear) 비트값 → 사람이 읽는 이름 */
+    private fun gearName(v: Int): String = when (v) {
+        0x0004 -> "P (주차)"
+        0x0002 -> "R (후진)"
+        0x0001 -> "N (중립)"
+        0x0008 -> "D (주행)"
+        else -> "기어($v)"
+    }
+
+    /** VehicleIgnitionState 값 → 사람이 읽는 이름 */
+    private fun ignitionName(v: Int): String = when (v) {
+        1 -> "LOCK"
+        2 -> "OFF"
+        3 -> "ACC"
+        4 -> "ON"
+        5 -> "START"
+        else -> "상태($v)"
     }
 
     /** 아직 허용되지 않은 차량 권한을 사용자에게 요청 */
