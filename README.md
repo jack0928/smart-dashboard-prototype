@@ -6,6 +6,12 @@ Pleos Connect 가 기반하는 **Android Automotive OS(AAOS)** 의 표준 API(`a
 
 > 개인 학습/포트폴리오용 프로젝트입니다.
 
+## 실행 화면
+
+Android Automotive(API 34) 에뮬레이터에서 실행한 모습. `CarPropertyManager`로 6개 차량 신호를 실시간 조회합니다.
+
+![실행 화면](docs/screenshot.png)
+
 ---
 
 ## 무엇을 만들었나
