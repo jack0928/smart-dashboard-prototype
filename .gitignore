@@ -1,0 +1,24 @@
+# Android / Gradle 빌드 결과물 및 개인 환경 파일 (GitHub에 올리지 않음)
+*.iml
+.gradle/
+/build
+/app/build/
+/captures
+.externalNativeBuild
+.cxx
+
+# 개인 PC 환경 설정 (SDK 경로 등 — 사람마다 다름)
+/local.properties
+/.idea/
+
+# 빌드 산출물
+*.apk
+*.aab
+
+secrets.properties
+.env
+.env.*
+*.crn
+
+# macOS
+.DS_Store
