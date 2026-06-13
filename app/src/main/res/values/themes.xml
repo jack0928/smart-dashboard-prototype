@@ -1,0 +1,5 @@
+<resources>
+    <!-- DayNight : 시스템 설정에 따라 밝은/어두운 테마 자동 전환.
+         NoActionBar : 상단 기본 앱바 없이 우리가 직접 화면을 구성. -->
+    <style name="Theme.PleosDashboard" parent="Theme.Material3.DayNight.NoActionBar" />
+</resources>
